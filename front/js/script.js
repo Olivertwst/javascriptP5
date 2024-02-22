@@ -20,10 +20,10 @@ function displayItems(sofas) {
         // let text = `Welcome ${firstName}, ${lastName}!`;
         section.innerHTML += ` <a href="./product.html?id=${sofa._id}">
         <article>
-          <img src=".../product01.jpg" alt="Lorem ipsum dolor sit amet, Kanap name1">
+          <img src=${sofa.imageUrl} alt=${sofa.altTxt}
           <h3 class="productName">${sofa.name}</h3>
           <p class="productDescription">${sofa.description}</p>
         </article>
-      </a> `;
+      </a> `
     }
 }
