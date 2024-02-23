@@ -10,12 +10,12 @@ fetch(url)
     .catch(err => console.log(err))
 
 function displayItems(sofas) {
-    // console.log(sofas);
+    console.log(sofas);
 
     const section = document.getElementById('items')
     for (let i = 0; i < sofas.length; i++) {
         const sofa = sofas[i];
-        // console.log(sofa.name)
+        console.log(sofa.name)
         // let text = `Welcome ${firstName}, ${lastName}!`;
         section.innerHTML += ` 
         <a href="./product.html?id=${sofa._id}">
