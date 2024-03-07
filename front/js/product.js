@@ -18,12 +18,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 function displayProducts(product) {
     console.log(product);
     const itemElement = document.querySelector('.item__img');
-    itemElement.innerHTML = `
-  <img src="${product.imageUrl}" alt="${product.altTxt}">
-    `
-        ;
-
-
+    itemElement.innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}"> `;
     const priceElement = document.getElementById('price');
     priceElement.innerText = product.price;
 
@@ -34,28 +29,20 @@ function displayProducts(product) {
     const colorElement = document.getElementById('colors');
 
     for (let i = 0; i < product.colors.length; i++) {
-        colorElement.innerHTML += `
-  <option value="${product.colors[i]}">${product.colors[i]}</option>
-      `
-            ;
+        colorElement.innerHTML += `<option value="${product.colors[i]}">${product.colors[i]}</option>`;
     }
+}
 
-    const cartItems = [product._id, product.colors];
+/**
+ * display cartItems on page
+ * 
+ * @param {object} cartItems items to be purchased
+ */
+function addToCart(cartItems) {
+    itemPurchased = product.find((product) => cartItems === cartItems);
+    cartItems.push(itemPurchased);
 
-    const productQuantity = (product, 'itemQuantity');
-    const productQuantityPushed = cartItems.push(product.itemQuantity);
     console.log(cartItems);
-
-    /**
-     * display cartItems on page
-     * @param {object} cartItems items to be purchased
-     */
-    function addToCart(cartItems) {
-        itemPurchased = product.find((product) => cartItems === cartItems);
-        cartItems.push(itemPurchased);
-
-        console.log(cartItems);
-    }
 }
 
 const addToCartButton = document.getElementById('addToCart');
@@ -84,12 +71,9 @@ addToCartButton.addEventListener('click', () => {
 
     if (findIteminCart) {
         findIteminCart.quantity += number;
-    }
-    else {
-
+    } else {
         cart.push(selectedProduct);
         console.log(selectedProduct);
-
     }
     console.log(cart);
 
