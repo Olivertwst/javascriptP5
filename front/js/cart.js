@@ -38,7 +38,7 @@ function displayProducts(product, cartItem) {
       <div class="cart__item__content__description">
         <h2>${product.name}</h2>
         <p>${cartItem.color}</p>
-        <p>${product.price}</p>
+        <p>€${product.price}</p>
     </div>
     <div class="cart__item__content__settings">
      <div class="cart__item__content__settings__quantity">
@@ -60,6 +60,7 @@ function displayProducts(product, cartItem) {
   const inputElement = articleElement.querySelector('.itemQuantity');
 
   deleteItemLink.addEventListener('click', function ($event) {
+    console.log('deleting')
     const clickedElement = $event.target;
     const articleElementClicked = clickedElement.closest("article")
     const idProductDeleted = articleElementClicked.dataset.id
@@ -129,12 +130,12 @@ firstNameInputElement.addEventListener('change', function ($event) {
  * @returns
  */
 function validateFirstName(firstName) {
-  const isValid = firstNameRegex.text(firstName);
+  const isValid = firstNameRegex.test(firstName);
 
   if (isValid) {
     firstNameMessageElement.innerText = ''
   } else {
-    firstNameMessageElement = 'First Name entered is not valid'
+    firstNameMessageElement.innerText = 'First Name entered is not valid'
   }
   return isValid
 }
@@ -142,7 +143,7 @@ function validateFirstName(firstName) {
 const lastNameRegex = /^[a-zA-z]+$/;
 const lastNameInputElement = document.getElementById('lastName');
 const lastNameMessageElement = document.getElementById('lastNameErrorMsg');
-lastNameInputElement.addEventListener('change', function (event) {
+lastNameInputElement.addEventListener('change', function ($event) {
   const lastName = $event.target.value;
   validateLastName(lastName);
 })
@@ -151,9 +152,9 @@ function validateLastName(lastName) {
   const isValid = lastNameRegex.test(lastName);
 
   if (isValid) {
-    firstNameMessageElement.innerText = ''
+    lastNameMessageElement.innerText = ''
   } else {
-    firstNameMessageElement = 'Last Name entered is not valid'
+    lastNameMessageElement.innerText = 'Last Name entered is not valid'
   }
   return isValid
 }
@@ -170,9 +171,9 @@ function validateAddress(address) {
   const isValid = addressRegex.test(address);
 
   if (isValid) {
-    firstNameMessageElement.innerText = ''
+    addressMessageElement.innerText = ''
   } else {
-    firstNameMessageElement = 'Address entered is not valid'
+    addressMessageElement.innerText = 'Address entered is not valid'
   }
   return isValid
 }
@@ -188,9 +189,9 @@ function validateCity(city) {
   const isValid = cityRegex.test(city);
 
   if (isValid) {
-    firstNameMessageElement.innerText = ''
+    cityMessageElement.innerText = ''
   } else {
-    firstNameMessageElement = 'City entered is not valid'
+    cityMessageElement.innerText = 'City entered is not valid'
   }
   return isValid
 }
@@ -206,9 +207,9 @@ function validateEmail(email) {
   const isValid = emailRegex.test(email);
 
   if (isValid) {
-    firstNameMessageElement.innerText = ''
+    emailMessageElement.innerText = ''
   } else {
-    firstNameMessageElement = 'Email entered is not valid'
+    emailMessageElement.innerText = 'Email entered is not valid'
   }
   return isValid
 }
@@ -238,15 +239,14 @@ orderButtonElement.addEventListener('click', function ($event) {
       })
       .then(response => response.json())
       .then(data => {
-        const orderID = data.orderId;
+        const orderId = data.orderId;
         console.log(orderId)
+        const confirmationDirect = `./confirmation.html?confirmation=${orderId}`
+        location.assign(confirmationDirect)
       })
       .catch(error => console.error(error));
   }
   localStorage.clear();
-
-  const confirmationDirect = 'http://127.0.0.1:5501/front/html/confirmation.html?confirmation=65431343444684674'
-  location.assign(confirmationDirect)
 })
 
 function validateForm() {
@@ -258,3 +258,4 @@ function validateForm() {
   isValid = validateEmail(emailInputElement.value) && isValid;
   return isValid;
 }
+
