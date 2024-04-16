@@ -242,13 +242,13 @@ orderButtonElement.addEventListener('click', function ($event) {
       .then(data => {
         const orderId = data.orderId;
         console.log(orderId)
+        const confirmationDirect = `http://localhost:5501/front/html/confirmation.html?confirmation=${orderId}`
+        location.assign(confirmationDirect)
       })
       .catch(error => console.error(error));
   }
   localStorage.clear();
-
-  const confirmationDirect = `./confirmation.html?confirmation=${orderId}`
-        location.assign(confirmationDirect)
+  
 })
 
 function validateForm() {
