@@ -24,7 +24,7 @@ async function insertCartItems() {
 function displayProducts(product, cartItem) {
   const articleElement = document.createElement('article');
 
-  if (!cartProducts.find(p => p.__id === product.__id)) {
+  if (!cartProducts.find(p => p._id === product._id)) {
     cartProducts.push(product)
   }
 
@@ -45,7 +45,7 @@ function displayProducts(product, cartItem) {
        <p>Quantity : </p> 
        <input type="number" class="itemQuantity"
             name="itemQuantity" min="1" max="100"
-            value="${cartItem.quantity}"
+            value="${cartItem.quantity}">
             </div>
             <div class=cart__item__content__settings__delete">
                 <p class="deleteItem">Delete</p>
@@ -73,6 +73,7 @@ function displayProducts(product, cartItem) {
     const cartItemToDeleted = cart.find(item => item.productId === idProductDeleted && item.color === colorProductDeleted);
     const quantityChange = cartItemToDeleted.quantity;
     console.log(cartProducts)
+    console.log(idProductDeleted)
     const cartItemPrice = cartProducts.find(item => item._id === idProductDeleted).price;
 
     updateTotals(-quantityChange, cartItemPrice)
@@ -99,15 +100,15 @@ function displayProducts(product, cartItem) {
     localStorage.setItem("cart", JSON.stringify(cart));
 
     const cartItemPrice = cartProducts.find(item => item._id === idProductToChange).price;
-    console.log(quantityChange)
+    console.log('quantityChange')
     updateTotals(-quantityChange, cartItemPrice)
   })
 }
 
 /**
  * Displays changes in quantity and price in chat
- * @param {*} quantityChange 
- * @param {*} cartItemPrice 
+ * @param {object} quantityChange 
+ * @param {object} cartItemPrice 
  */
 function updateTotals(quantityChange, cartItemPrice) {
   const currentTotalQuantity = parseInt(totalQuantityElement.innerText || 0);
@@ -241,12 +242,13 @@ orderButtonElement.addEventListener('click', function ($event) {
       .then(data => {
         const orderId = data.orderId;
         console.log(orderId)
-        const confirmationDirect = `./confirmation.html?confirmation=${orderId}`
-        location.assign(confirmationDirect)
       })
       .catch(error => console.error(error));
   }
   localStorage.clear();
+
+  const confirmationDirect = `./confirmation.html?confirmation=${orderId}`
+        location.assign(confirmationDirect)
 })
 
 function validateForm() {
